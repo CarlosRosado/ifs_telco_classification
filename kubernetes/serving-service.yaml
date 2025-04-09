@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ifs-serving-service
+  labels:
+    app: ifs-serving
+spec:
+  selector:
+    app: ifs-serving
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8001
+      nodePort: 30081 
+    - name: prometheus
+      protocol: TCP
+      port: 9091
+      targetPort: 9091
+      nodePort: 30091
+  type: NodePort
