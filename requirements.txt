@@ -1,0 +1,12 @@
+pandas
+pytest
+scikit-learn
+flask
+python-dotenv
+imbalanced-learn
+mlflow
+prometheus_client
+httpx
+transformers==4.29.0
+torch
+huggingface_hub[hf_xet]>=0.14.0

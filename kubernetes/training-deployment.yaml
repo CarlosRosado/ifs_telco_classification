@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ifs-training-job
+spec:
+  backoffLimit: 4
+  template:
+    metadata:
+      labels:
+        app: ifs-training
+    spec:
+      containers:
+      - name: ifs-training-container
+        image: carlosrosado/training-ifs-image:latest
+        command: ["python", "/app/src/model/train_mlflow.py"]
+        env:
+        - name: LOCAL_DATA_PATH
+          value: "/app/data_files/ML_telco_customer_churn_data.csv"
+        - name: MODEL_OUTPUT_PATH
+          value: "/app/models/model.pkl"
+        - name: MLFLOW_TRACKING_URI
+          value: "http://mlflow:5000"
+      restartPolicy: Never

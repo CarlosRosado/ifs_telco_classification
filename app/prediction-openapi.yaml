@@ -1,0 +1,107 @@
+openapi: 3.0.2
+info:
+  title: Telco Churn Prediction API
+  description: API for predicting customer churn using a machine learning model.
+  version: 1.0.0
+servers:
+  - url: http://localhost:30081
+    description: Local server
+paths:
+  /:
+    get:
+      summary: Root Endpoint
+      description: Returns a welcome message.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Welcome to the Telco Churn Prediction API
+  /predict:
+    post:
+      summary: Predict Customer Churn
+      description: Predicts whether a customer will churn based on input features.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tenure:
+                  type: integer
+                  example: 12
+                MonthlyCharges:
+                  type: number
+                  format: float
+                  example: 70.35
+                TotalCharges:
+                  type: number
+                  format: float
+                  example: 843.0
+                gender:
+                  type: integer
+                  example: 1
+                Partner:
+                  type: integer
+                  example: 0
+                Dependents:
+                  type: integer
+                  example: 0
+                PhoneService:
+                  type: integer
+                  example: 1
+                PaperlessBilling:
+                  type: integer
+                  example: 1
+                InternetService_Fiber_optic:
+                  type: integer
+                  example: 1
+                InternetService_No:
+                  type: integer
+                  example: 0
+                Contract_Month_to_month:
+                  type: integer
+                  example: 1
+                Contract_One_year:
+                  type: integer
+                  example: 0
+                PaymentMethod_Electronic_check:
+                  type: integer
+                  example: 1
+      responses:
+        '200':
+          description: Successful prediction
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  model:
+                    type: string
+                    example: ifs_Random_Forest
+                  version:
+                    type: string
+                    example: latest
+                  prediction:
+                    type: integer
+                    example: 1
+                  probability:
+                    type: number
+                    format: float
+                    example: 0.85
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: An error occurred during prediction.
